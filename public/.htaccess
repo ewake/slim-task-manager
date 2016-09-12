@@ -1,0 +1,57 @@
+<IfDefine !dev>
+	#http://stackoverflow.com/questions/17018586/apache-2-4-php-fpm-and-authorization-headers
+	#http://stackoverflow.com/questions/29033794/apache-2-4-and-php-fpm-does-not-trigger-apache-http-basic-auth-for-php-pages
+	#https://gist.github.com/ewake/c1e7cb5131b4c67a292b
+	#CGIPassAuth on
+	#ProxyPassMatch ^(/.*\.php)$ fcgi://127.0.0.1:9000/var/www/auth
+	#SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+	
+	AuthName "Admin area"
+	AuthType Basic
+	#AuthGroupFile /dev/null
+	AuthUserFile /var/www/domain.tld/private/.htpasswd
+	require valid-user
+</IfDefine>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	
+	#<IfDefine dev>
+  		#RewriteBase /domain.tld/public/
+  	#</IfDefine>
+  	<IfDefine !dev>
+		RewriteBase /
+	</IfDefine>
+
+	<IfDefine !dev>
+		# Redirect non-www to www
+		RewriteCond %{HTTP_HOST} !^www\.
+		RewriteCond %{HTTP_HOST} !^tm\.
+		RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+		
+		# Redirect www to non-www:
+		# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+		# RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+	</IfDefine>
+	
+	# Redirect Trailing Slashes...
+	RewriteRule ^(.*)/$ $1 [L,R=301]
+	
+	# Filename-based cache busting
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.+)\.(\d+)\.(js|css|png|jpe?g|gif)$ $1.$3 [L]
+	
+	# Handle Front Controller...  
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^ index.php [QSA,L]
+	
+	#RewriteCond %{REQUEST_FILENAME} -s [OR]
+	#RewriteCond %{REQUEST_FILENAME} -l [OR]
+	#RewriteCond %{REQUEST_FILENAME} -d
+	#RewriteRule ^.*$ - [NC,L]
+	
+	#RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+	#RewriteRule ^(.*) - [E=BASE:%1]
+	#RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
+</IfModule>

@@ -1,0 +1,17 @@
+{% block sidebar %}
+<div id="sidebar" class="col-md-3">
+	
+	<div class="well equalize">
+		<h4>Pannello di Controllo</h4>
+	
+		<ul class="nav nav-pills nav-stacked">
+			<li><a class="btn btn-default btn-xs" href="{{ path_for('api-task-reset', {'lang': lang, 'id': id}) }}">Resetta Tasks</a></li>
+			{% if settings.mode != 'production' %}
+				<li><a class="btn btn-default btn-xs" href="{{ path_for('api-wipe-log', {'lang': lang, 'id': id}) }}">Svuota Log</a></li>
+				<li><a class="btn btn-default btn-xs" href="{{ path_for('api-db-nuke', {'lang': lang, 'id': id}) }}">Svuota Database TM</a></li>
+			{% endif %}	
+		</ul>
+	</div>
+	
+</div>
+{% endblock sidebar %}

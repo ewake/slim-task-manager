@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js {{ html_class|default(['page'])|join(' ') }}" lang="{{ lang|e }}">
+	<head>
+    <base href="{{ base_url() }}/">
+    <meta charset="utf-8">
+    <title>{{ meta_title }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ meta_descr|e }}">
+    <meta name="keywords" content="{{ meta_keywd|e }}">
+    <meta name="author" content="{{ settings.credits_name|e }}">
+    
+ 		{% use "partials/stylesheets.twig" %}   
+    {% block stylesheets %}
+    	{{ parent() }}
+    {% endblock stylesheets %}
+    
+    {% use "partials/javascripts_top.twig" %}
+		{% block javascripts_top %}
+			{{ parent() }}
+    {% endblock javascripts_top %}
+
+    <link rel="shortcut icon" href="{{ cdn_url() }}/img/favicon/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ cdn_url() }}/img/favicon/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ cdn_url() }}/img/favicon/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ cdn_url() }}/img/favicon/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+    
+    {% block container %}    
+  	<div class="container">
+  	
+  		{% block header %}
+  		<header>
+  			
+  			<div class="row">
+  			
+  				<div id="header-left" class="col-md-6">
+  				
+		  			<h1>
+		  				<a class="logo" href="{{ base_url() }}">
+		  					<img class="img-responsive" src="https://static.ewake.it/img/logo-md.png" alt="">
+		  				</a>
+		  			</h1>
+		  		
+		  		</div>
+		  		
+		  		<div id="header-right" class="col-md-6">
+  		
+  					<h2>{{ settings.app_name }}<br><small>{{ settings.app_sub_name }}</small></h2>
+  					
+  				</div>
+  				
+  			</div>
+  			
+  			{% use "partials/navbar.twig" %}
+	      {% block navbar %}
+	        {{ parent() }}   
+	      {% endblock navbar %}
+  			
+  		</header>
+  		{% endblock header %}
+  	
+  		{% block section %}
+  		<section>
+  		
+  			<div class="row">
+  			
+  				{% block content %}
+	  			<div id="content" class="col-md-9">
+  		
+  					<div class="well equalize">	
+		  		  	{% if title %}
+		  		  		<h2>{{ title }}{% if sub_title %} <small>{{ sub_title }}</small>{% endif %}</h2>			
+		  				{% endif %}
+	
+		        	{% block main %}
+		        	{% endblock main %}
+	        	</div>
+	        		
+	  			</div>
+	  			{% endblock content %}
+	  				
+	  			{% use "partials/sidebar.twig" %}
+	        {% block sidebar %}
+	        	{{ parent() }}   
+	       	{% endblock sidebar %}
+	  			
+	  		</div>
+	  		
+  			<div class="row">
+	  				
+	  			{% use "partials/tasklog.twig" %}
+	        {% block tasklog %}
+	        	{{ parent() }}   
+	       	{% endblock tasklog %}
+	  			
+	  		</div>
+	  		
+  		</section>
+  		{% endblock section %}
+  		
+  		{% block footer %}
+  		<footer>
+  		
+  			<div class="row">
+  			
+  				<div id="footer-left" class="col-md-6 small text-muted">
+  					<p>© {{ 'now'|date('Y') }} <a href="{{ settings.credits_url }}" title="{{ settings.credits_title|e }}" target="_blank">{{ settings.credits_name }}</a></p>
+  				</div>
+  				
+  				<div id="footer-right" class="col-md-6 small text-muted">
+  					<p>{{ settings.app_name }} v.{{ settings.app_version }}</p>
+  				</div>
+  				
+  			</div>
+  			
+  		</footer>
+  		{% endblock footer %}
+  		
+  	</div>
+		{% endblock container %} 
+
+    {% use "partials/javascripts_bottom.twig" %}
+		{% block javascripts_bottom %}
+			{{ parent() }}
+    {% endblock javascripts_bottom %}
+    
+    {% if settings.mode == 'production' %}
+    {# <script src="https://static.ewake.it/tracking/{{ settings.analytics }}.js"></script> #}
+    {% endif %}
+  </body>
+</html>

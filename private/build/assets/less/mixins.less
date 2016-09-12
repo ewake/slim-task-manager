@@ -1,0 +1,22 @@
+/* =============================================================================
+   utils
+   ========================================================================== */
+.transform(@transform) {
+  -webkit-transform: @transform;
+      -ms-transform: @transform; // IE9+
+          transform: @transform;
+}
+
+.border-radius(@radius) {
+  .border-top-radius(@radius);
+  .border-right-radius(@radius);
+	.border-bottom-radius(@radius);
+	.border-left-radius(@radius);
+}
+
+.divider(@width: 100%) {
+	.nav-divider(@gray-light);
+	.center-block();
+	width: @width;
+}
+

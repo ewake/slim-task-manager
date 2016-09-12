@@ -1,0 +1,15 @@
+{% block tasklog %}
+<div id="tasklog" class="col-md-12">
+	
+	<div class="well">
+		<h3>Tasks log</h3>
+		
+		{% if flashes %}
+			{% include "partials/flash.twig" %}
+		{% endif %}
+		
+		<pre id="tasklog-main" class="pre-scrollable">{{ task_log|raw }}</pre>
+	</div>
+	
+</div>
+{% endblock tasklog %}

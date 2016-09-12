@@ -1,0 +1,19 @@
+{% extends "base/master.twig" %}
+
+{% set html_class = ['page'] %}
+{% set meta_title = "Task ##{id}" %}
+{% set meta_desc = '' %}
+{% set meta_keywd = '' %}
+{% set title = "Task ##{id}" %}
+{% set sub_title = 'Importazione Tag' %}
+
+{% block main %}
+<form action="{{ path_for('task', {'lang': lang, 'id': id}) }}" method="post">
+	<input type="hidden" name="csrf_name" value="{{ csrf_name }}">
+	<input type="hidden" name="csrf_value" value="{{ csrf_value }}">
+	
+
+
+	<button type="submit" class="btn btn-primary btn-lg"{% if check_start == false %} disabled{% endif %}>Esegui Task #{{ id }}</button>
+</form>
+{% endblock main %}

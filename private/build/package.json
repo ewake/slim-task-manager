@@ -1,0 +1,33 @@
+{
+  "name": "ewake.it",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ewake.it",
+  "keywords": "EWake",
+  "homepage": "https://ewake.it",
+  "bugs": {
+    "url": "https://ewake.it",
+    "email": ""
+  },
+  "license": "MIT",
+  "author": "EWake",
+  "contributors": {
+    "name": "EWake",
+    "email": "",
+    "url": "https://ewake.it"
+  },
+  "main": "Gruntfile.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "grunt": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-concat-sourcemap": "*",
+    "matchdep": "*",
+    "grunt-banner": "*"
+  }
+}

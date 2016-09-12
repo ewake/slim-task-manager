@@ -1,0 +1,34 @@
+{
+  "name": "ewake.it",
+  "version": "1.0.0",
+  "authors": [
+    "EWake"
+  ],
+  "description": "ewake.it",
+  "keywords": [
+    "EWake"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "https://ewake.it",
+  "ignore": [
+    "**/.*",
+    "src",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+    "jquery": ">=1.11.0 <2.0",
+    "jquery-migrate": ">=1.2.0",
+    "jquery-easing-original": "~1.3.1",
+    "bootstrap": "~3.3.5",
+    "fontawesome": "~4.3.0",
+    "bootstrap-validator": "1000hz/bootstrap-validator#~0.9.0",
+    "jquery-sse": "~0.1.2"
+  }
+}

@@ -1,0 +1,73 @@
+{% block javascripts_bottom %}
+<script src="{{ cdn_url() }}/{{ version('js/app.min.js') }}"></script>
+
+{% if flashes.info %}
+<script>
+var sse = $.SSE('{{ path_for('api-task-sse', {'lang': lang}) }}', {
+	onMessage: function(e){ 
+		console.log('message');
+		
+		var data = JSON.parse(e.data);
+		console.log(data);
+		
+		$('#tasklog-main').prepend('[' + data.idate + '] task' + (data.task_id ? ' #' + data.task_id : 's') + ': <span class="' + $.getLabel(data.label) + '">' + data.label + '</span>' + data.title + '\n');
+	},
+	onOpen: function(e){ 
+    console.log('open');
+    console.log(e);
+	},
+	onEnd: function(e){ 
+    console.log('end'); 
+    console.log(e); 
+	},
+	onError: function(e){ 
+    console.log('error'); 
+    console.log(e); 
+	},
+	options: {
+		forceAjax: false
+	},
+	events: {
+		myStop: function(e) {
+	    sse.stop();
+	    console.log('myStop');
+	    	
+	    $('#tasklog .alert').not('.alert-info').each(function(i, elem){
+	    	$(elem).remove();
+	    });
+	    	
+	    $('#tasklog .alert-info')
+	    	.removeClass('alert-info')
+	    	.addClass('alert-success')
+	    	.find('span')
+	    	.html('<div class="media"><div class="media-left media-middle"><i class="fa fa-check fa-2x"></i></div><div class="media-body media-middle">Task completato con successo.</div></div>');
+	 
+	 		$('button[type="submit"').removeAttr('disabled');
+	  },
+	  myError: function(e) {
+	    sse.stop();
+	    console.log('myError');
+	    
+	    var data = JSON.parse(e.data);
+			console.log(data);
+		
+			$('#tasklog-main').prepend('[' + data.idate + '] task #' + data.task_id + ': <span class="' + $.getLabel(data.label) + '">' + data.label + '</span>' + data.title + '\n');
+	    	
+	    $('#tasklog .alert').not('.alert-info').each(function(i, elem){
+	    	$(elem).remove();
+	    });
+	    	
+	    $('#tasklog .alert-info')
+	    	.removeClass('alert-info')
+	    	.addClass('alert-warning')
+	    	.find('span')
+	    	.html('<div class="media"><div class="media-left media-middle"><i class="fa fa-warning fa-2x"></i></div><div class="media-body media-middle">Si è verificato un problema tecnico.</div></div>');
+	  
+	  	$('button[type="submit"').removeAttr('disabled');
+	  }
+	}
+});
+sse.start();
+</script>
+{% endif %}
+{% endblock javascripts_bottom %}

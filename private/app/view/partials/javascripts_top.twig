@@ -1,0 +1,8 @@
+{% block javascripts_top %}
+<script src="{{ cdn_url() }}/{{ version('js/top.min.js') }}"></script>
+
+<!--[if lt IE 9]>
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+{% endblock javascripts_top %}
